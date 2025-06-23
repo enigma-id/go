@@ -56,6 +56,7 @@ func UploadImage(dir string, name string, fb []byte, thumb bool) (url string, e 
 
 	var thumbImage *Image
 
+	dir = fmt.Sprintf("%s/%s", os.Getenv("AWS_DIRECTORY"), dir)
 	image := NewImage(fmt.Sprintf("%s/%s", dir, name), fb)
 
 	if thumb {
@@ -101,7 +102,7 @@ func getURL(res string) string {
 	awsBucket := os.Getenv("AWS_BUCKET")
 	awsRegion := os.Getenv("AWS_REGION")
 
-	return fmt.Sprintf("https://s3-%s.amazonaws.com/%s/%s", awsRegion, awsBucket, res)
+	return fmt.Sprintf("https://s3.%s.amazonaws.com/%s/%s", awsRegion, awsBucket, res)
 }
 
 func getExtention(ct string) (ext string) {
